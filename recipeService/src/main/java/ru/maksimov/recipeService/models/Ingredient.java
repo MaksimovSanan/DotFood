@@ -1,8 +1,8 @@
 package ru.maksimov.recipeService.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 

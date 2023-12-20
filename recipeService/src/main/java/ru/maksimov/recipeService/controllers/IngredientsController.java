@@ -12,7 +12,7 @@ import ru.maksimov.recipeService.util.exceptions.IngredietNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ingredients")
+@RequestMapping("/resource/ingredients")
 public class IngredientsController {
     IngredientsService ingredientsService;
 

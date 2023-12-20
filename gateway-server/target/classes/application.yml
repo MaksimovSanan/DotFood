@@ -8,7 +8,14 @@ spring:
         - id: resource
           uri: http://127.0.0.1:8090
           predicates:
-            - Path=/resource
+            - Path=/resource/recipes
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
+        - id: resource
+          uri: http://127.0.0.1:8090
+          predicates:
+            - Path=/resource/ingredients
           filters:
             - TokenRelay=
             - RemoveRequestHeader=Cookie

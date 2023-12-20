@@ -15,7 +15,7 @@ import ru.maksimov.recipeService.util.exceptions.RecipeNotFoundException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/resource/recipes")
 public class RecipesController {
     RecipesService recipesService;
 

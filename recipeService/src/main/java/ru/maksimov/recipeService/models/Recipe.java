@@ -39,7 +39,7 @@ public class Recipe {
     )
 //    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JsonManagedReference
-    @JsonIgnore
+//    @JsonIgnore
     List<Ingredient> ingredients;
 
     public Recipe() {

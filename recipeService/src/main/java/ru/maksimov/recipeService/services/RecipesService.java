@@ -1,5 +1,6 @@
 package ru.maksimov.recipeService.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,15 +18,17 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class RecipesService {
     private final RecipesRepository recipesRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public RecipesService(RecipesRepository recipesRepository) {
+    public RecipesService(RecipesRepository recipesRepository, ModelMapper modelMapper) {
         this.recipesRepository = recipesRepository;
+        this.modelMapper = modelMapper;
     }
 
-    public List<Recipe> findAll() {
-        return recipesRepository.findAll();
-    }
+//    public List<Recipe> findAll() {
+//        return recipesRepository.findAll();
+//    }
 
     public List<RecipeDto> findAllRecipes() {
         List<Recipe> recipes = recipesRepository.findAll();
@@ -35,14 +38,7 @@ public class RecipesService {
     }
 
     private RecipeDto mapToRecipeDto(Recipe recipe) {
-        RecipeDto recipeDto = new RecipeDto();
-        recipeDto.setId(recipe.getId());
-        recipeDto.setTitle(recipe.getTitle());
-        recipeDto.setDescription(recipe.getDescription());
-        recipeDto.setCookingTime(recipe.getCookingTime());
-        recipeDto.setRating(recipe.getRating());
-        recipeDto.setPhoto(recipe.getPhoto());
-        recipeDto.setStatus(recipe.getStatus());
+        RecipeDto recipeDto = modelMapper.map(recipe, RecipeDto.class);
         return recipeDto;
     }
 
@@ -52,22 +48,10 @@ public class RecipesService {
         if (recipeOptional.isPresent()) {
             Recipe recipe = recipeOptional.get();
 
-            // Создаем RecipeWithIngredientsDto
-            RecipeWithIngredientsDto recipeWithIngredientsDto = new RecipeWithIngredientsDto();
-            recipeWithIngredientsDto.setId(recipe.getId());
-            recipeWithIngredientsDto.setTitle(recipe.getTitle());
-            recipeWithIngredientsDto.setDescription(recipe.getDescription());
-            recipeWithIngredientsDto.setCookingTime(recipe.getCookingTime());
-            recipeWithIngredientsDto.setRating(recipe.getRating());
-            recipeWithIngredientsDto.setPhoto(recipe.getPhoto());
-            recipeWithIngredientsDto.setStatus(recipe.getStatus());
-
-            // Заполняем ингредиенты для рецепта
-            recipeWithIngredientsDto.setIngredients(recipe.getIngredients());
+            RecipeWithIngredientsDto recipeWithIngredientsDto = modelMapper.map(recipe, RecipeWithIngredientsDto.class);
 
             return recipeWithIngredientsDto;
         } else {
-            // Обработка случая, когда рецепт с указанным id не найден
             throw new RecipeNotFoundException();
         }
     }

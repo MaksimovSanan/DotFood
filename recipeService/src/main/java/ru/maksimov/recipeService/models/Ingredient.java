@@ -1,6 +1,7 @@
 package ru.maksimov.recipeService.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ public class Ingredient {
 
     @ManyToMany(mappedBy = "ingredients")
 //    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     List<Recipe> recipes;
 
     public Ingredient() {

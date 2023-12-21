@@ -1,13 +1,24 @@
 package ru.maksimov.recipeService.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class RecipeDto {
     private int id;
     private String title;
     private String description;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime cookingTime;
+    private int portions;
     private Float rating;
+
+    private LocalDateTime postDate;
     private String photo;
     private int status;
 
@@ -43,12 +54,28 @@ public class RecipeDto {
         this.cookingTime = cookingTime;
     }
 
+    public int getPortions() {
+        return portions;
+    }
+
+    public void setPortions(int portions) {
+        this.portions = portions;
+    }
+
     public Float getRating() {
         return rating;
     }
 
     public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public LocalDateTime getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(LocalDateTime postDate) {
+        this.postDate = postDate;
     }
 
     public String getPhoto() {

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import org.hibernate.annotations.Cascade;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,13 @@ public class Recipe {
     @Column(name = "cooking_time")
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime cookingTime;
+    @Column(name = "portions")
+    private int portions;
     @Column(name = "rating")
     private Float rating;
+
+    @Column(name = "post_date")
+    private LocalDateTime postDate;
     @Column(name = "photo")
     private String photo;
     @Column(name = "status")
@@ -38,18 +44,20 @@ public class Recipe {
             inverseJoinColumns = @JoinColumn(name = "ingredient_id")
     )
 //    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JsonManagedReference
+//    @JsonManagedReference
 //    @JsonIgnore
     List<Ingredient> ingredients;
 
     public Recipe() {
     }
 
-    public Recipe(String title, String description, LocalTime cookingTime, float rating, String photo, int status, List<Ingredient> ingredients) {
+    public Recipe(String title, String description, LocalTime cookingTime, int portions, float rating, LocalDateTime postDate, String photo, int status, List<Ingredient> ingredients) {
         this.title = title;
         this.description = description;
         this.cookingTime = cookingTime;
+        this.portions = portions;
         this.rating = rating;
+        this.postDate = postDate;
         this.photo = photo;
         this.status = status;
         this.ingredients = ingredients;
@@ -95,12 +103,28 @@ public class Recipe {
         this.cookingTime = cookingTime;
     }
 
-    public float getRating() {
+    public int getPortions() {
+        return portions;
+    }
+
+    public void setPortions(int portions) {
+        this.portions = portions;
+    }
+
+    public Float getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public LocalDateTime getPostDate() {
+        return postDate;
+    }
+
+    public void setPostDate(LocalDateTime postDate) {
+        this.postDate = postDate;
     }
 
     public String getPhoto() {

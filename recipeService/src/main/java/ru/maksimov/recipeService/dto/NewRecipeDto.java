@@ -3,31 +3,23 @@ package ru.maksimov.recipeService.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import ru.maksimov.recipeService.models.Ingredient;
 
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
-public class RecipeWithIngredientsDto {
-    private int id;
+public class NewRecipeDto {
+
+    @NotEmpty(message = "Title should not be empty")
     private String title;
+    @NotEmpty(message = "Description should not be empty")
     private String description;
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime cookingTime;
     private int portions;
-    private Float rating;
-
-    private LocalDateTime postDate;
+    @NotEmpty(message = "Photo should not be empty")
     private String photo;
-    private int status;
     private List<Ingredient> ingredients;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -61,36 +53,12 @@ public class RecipeWithIngredientsDto {
         this.portions = portions;
     }
 
-    public Float getRating() {
-        return rating;
-    }
-
-    public void setRating(Float rating) {
-        this.rating = rating;
-    }
-
-    public LocalDateTime getPostDate() {
-        return postDate;
-    }
-
-    public void setPostDate(LocalDateTime postDate) {
-        this.postDate = postDate;
-    }
-
     public String getPhoto() {
         return photo;
     }
 
     public void setPhoto(String photo) {
         this.photo = photo;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
     }
 
     public List<Ingredient> getIngredients() {

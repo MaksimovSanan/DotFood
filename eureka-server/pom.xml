@@ -11,47 +11,28 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>ru.nova</groupId>
-    <artifactId>authorization-server</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <name>authorization-server</name>
-    <description>authorization-server</description>
+    <groupId>ru.dotfood</groupId>
+    <artifactId>eureka-server</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>eureka-server</name>
+    <description>eureka-server</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring-auth-server.version>0.3.1</spring-auth-server.version>
         <spring.cloud-version>2021.0.5</spring.cloud-version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-authorization-server</artifactId>
-            <version>${spring-auth-server.version}</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

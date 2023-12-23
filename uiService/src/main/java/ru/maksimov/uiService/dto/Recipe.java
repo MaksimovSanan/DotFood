@@ -1,10 +1,9 @@
-package ru.maksimov.uiService.models;
+package ru.maksimov.uiService.dto;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
 
-public class RecipeWithIngredients {
+public class Recipe {
     private int id;
     private String title;
     private String description;
@@ -14,7 +13,6 @@ public class RecipeWithIngredients {
     private LocalDateTime postDate;
     private String photo;
     private int status;
-    private List<Ingredient> ingredients;
 
     public int getId() {
         return id;
@@ -86,13 +84,5 @@ public class RecipeWithIngredients {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public List<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
     }
 }

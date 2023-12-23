@@ -1,17 +1,134 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Recipe List</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h2>Recipe List</h2>-->
+
+<!--<table border="1">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Title</th>-->
+<!--        <th>Description</th>-->
+<!--        <th>Cooking Time</th>-->
+<!--        <th>Portions</th>-->
+<!--        <th>Rating</th>-->
+<!--        <th>Post Date</th>-->
+<!--        <th>Status</th>-->
+<!--        <th>Action</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Loop through the list of recipes &ndash;&gt;-->
+<!--    <tr th:each="recipe : ${recipes}">-->
+<!--        <td th:text="${recipe.title}"></td>-->
+<!--        <td th:text="${recipe.description}"></td>-->
+<!--        <td th:text="${recipe.cookingTime}"></td>-->
+<!--        <td th:text="${recipe.portions}"></td>-->
+<!--        <td th:text="${recipe.rating}"></td>-->
+<!--        <td th:text="${recipe.postDate}"></td>-->
+<!--        <td th:text="${recipe.status}"></td>-->
+<!--        &lt;!&ndash; Link to the detailed recipe page &ndash;&gt;-->
+<!--        <td>-->
+<!--            <a th:href="@{/recipes/{id}(id=${recipe.id})}">Details</a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Recipe List</title>
+
+    <!-- Подключение стилей (можно настроить стили по своему усмотрению) -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        h3 {
+            color: #007bff;
+        }
+
+        p {
+            color: #555;
+        }
+
+        a.button {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        a.button:hover {
+            background-color: #218838;
+        }
+    </style>
+
 </head>
 <body>
 
-<div th:each="recipe: ${recipes}">
-    <a th:href="@{/recipes/{id}(id=${recipe.id})}" th:text="${recipe.title}">userName</a>
-</div>
+<h2>Recipe List</h2>
 
-<br/>
-<hr/>
+<ul th:each="recipe : ${recipes}">
+    <li>
+        <h3 th:text="${recipe.title}"></h3>
+        <p th:text="${recipe.description}"></p>
+        <p><strong>Cooking Time:</strong> <span th:text="${recipe.cookingTime}"></span></p>
+        <p><strong>Portions:</strong> <span th:text="${recipe.portions}"></span></p>
+        <p><strong>Rating:</strong> <span th:text="${recipe.rating}"></span></p>
+        <p><strong>Post Date:</strong> <span th:text="${recipe.postDate}"></span></p>
+        <p><strong>Status:</strong> <span th:text="${recipe.status}"></span></p>
+
+        <!-- Link to the detailed recipe page -->
+        <p>
+            <a th:href="@{'/recipes/' + ${recipe.id}}" class="button" onclick="return redirectToDetails()">Details</a>
+        </p>
+    </li>
+</ul>
+
+<!-- Button to navigate to the page for creating a new recipe -->
+<a th:href="@{/recipes/create}" class="button">Create New Recipe</a>
+
+<!-- JavaScript для преобразования ссылки в кнопку -->
+<script>
+    function redirectToDetails() {
+        // Здесь вы можете добавить дополнительную логику, если это необходимо
+        return true; // Если вам нужно перейти по ссылке
+    }
+</script>
 
 </body>
 </html>

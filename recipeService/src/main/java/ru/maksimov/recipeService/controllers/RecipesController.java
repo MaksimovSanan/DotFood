@@ -71,7 +71,7 @@ public class RecipesController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> update(@RequestBody @Valid UpdateRecipeDto recipe,
                                              BindingResult bindingResult,
                                              @PathVariable("id") int id) {

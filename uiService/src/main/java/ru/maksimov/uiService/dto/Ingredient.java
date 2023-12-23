@@ -1,4 +1,4 @@
-package ru.maksimov.uiService.models;
+package ru.maksimov.uiService.dto;
 
 public class Ingredient {
     private int id;

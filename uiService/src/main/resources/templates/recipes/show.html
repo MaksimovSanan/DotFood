@@ -1,19 +1,148 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Recipe Details</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h2 th:text="${recipe.title}">Recipe Title</h2>-->
+
+<!--<div>-->
+<!--    <p th:text="${recipe.description}">Description</p>-->
+<!--    <p>Cooking Time: <span th:text="${recipe.cookingTime}"></span></p>-->
+<!--    <p>Portions: <span th:text="${recipe.portions}"></span></p>-->
+<!--    <p>Rating: <span th:text="${recipe.rating}"></span></p>-->
+<!--    <p>Post Date: <span th:text="${recipe.postDate}"></span></p>-->
+<!--    <p>Status: <span th:text="${recipe.status}"></span></p>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Display photo if available &ndash;&gt;-->
+<!--<div th:if="${recipe.photo}">-->
+<!--    <img th:src="${recipe.photo}" alt="Recipe Photo"/>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Display ingredients &ndash;&gt;-->
+<!--<div>-->
+<!--    <h3>Ingredients</h3>-->
+<!--    <ul>-->
+<!--        <li th:each="ingredient : ${recipe.ingredients}">-->
+<!--            <span th:text="${ingredient.title}"></span>-->
+<!--            <span th:text="${ingredient.price}"></span>-->
+<!--            <div th:if="${ingredient.photo}">-->
+<!--                <img th:src="${ingredient.photo}" alt="Ingredient Photo"/>-->
+<!--            </div>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; You can add more details or customize the layout based on your requirements &ndash;&gt;-->
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Recipe Details</title>
+
+    <!-- Подключение стилей (можно настроить стили по своему усмотрению) -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            margin: 20px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        div {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        p {
+            color: #555;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+    </style>
+
 </head>
 <body>
 
-<p th:text="'title: ' + ${recipe.title}">Recipe Title</p>
-<p th:text="'description: ' + ${recipe.description}">Recipe Description</p>
-<p th:text="'Time for cook: ' + ${recipe.cookingTime}">Time for Cook</p>
-<p th:text="'Portions: ' + ${recipe.portions}">Recipe portions</p>
-<p th:text="'Rating: ' + ${recipe.rating}">Rating of recipe</p>
-<p th:text="'Post Date: ' + ${recipe.postDate}">Post date of recipe</p>
-<p th:text="'Photo of recipe: ' + ${recipe.photo}">Photo date of recipe</p>
+<h2>Recipe Details</h2>
 
+<div>
+    <h3 th:text="${recipe.title}"></h3>
+    <p th:text="${recipe.description}"></p>
+    <p><strong>Cooking Time:</strong> <span th:text="${recipe.cookingTime}"></span></p>
+    <p><strong>Portions:</strong> <span th:text="${recipe.portions}"></span></p>
+    <p><strong>Rating:</strong> <span th:text="${recipe.rating}"></span></p>
+    <p><strong>Post Date:</strong> <span th:text="${recipe.postDate}"></span></p>
+    <p><strong>Status:</strong> <span th:text="${recipe.status}"></span></p>
+
+    <!-- Отображение фото рецепта -->
+    <img th:src="${recipe.photo}" alt="Recipe Photo">
+
+    <!-- Отображение ингредиентов -->
+    <h4>Ingredients:</h4>
+    <ul>
+        <li th:each="ingredient : ${recipe.ingredients}">
+            <a th:href="@{/ingredients/{id}(id=${ingredient.id})}" th:text="${ingredient.title}"></a>
+        </li>
+    </ul>
+
+    <!-- Добавление кнопки для редактирования рецепта -->
+    <a th:href="@{'/recipes/' + ${recipe.id} + '/edit'}"><button>Edit Recipe</button></a>
+
+    <!-- Добавление кнопки для удаления рецепта -->
+    <form id="deleteForm" th:action="@{'/recipes/' + ${recipe.id}}" method="post">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="button" onclick="confirmDelete()">Delete Recipe</button>
+    </form>
+
+    <br/>
+
+    <!-- Кнопка для возврата к списку рецептов -->
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- JavaScript для реализации возврата назад и подтверждения удаления -->
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this recipe?")) {
+            document.getElementById("deleteForm").submit();
+        }
+    }
+</script>
 
 </body>
 </html>

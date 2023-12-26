@@ -23,6 +23,7 @@ public class IngredientsController {
 
     @GetMapping
     public List<Ingredient> findAll() {
+        System.out.println("------------------------------324323");
         return ingredientsService.findAll();
     }
 
@@ -38,5 +39,10 @@ public class IngredientsController {
                 System.currentTimeMillis()
         );
         return new ResponseEntity<>(ingredientErrorResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    public String test(){
+        return "Testtesttes";
     }
 }

@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,27 +34,34 @@ public class User implements UserDetails {
     private Set<Role> roles = new HashSet<>();
 
     @Override
+    @Transient
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        getRoles().forEach(r -> authorities.add(new SimpleGrantedAuthority(r.getRoleName())));
+        return authorities;
     }
 
     @Override
+    @Transient
     public boolean isAccountNonExpired() {
         return false;
     }
 
     @Override
+    @Transient
     public boolean isAccountNonLocked() {
         return false;
     }
 
     @Override
+    @Transient
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
     @Override
+    @Transient
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

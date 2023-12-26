@@ -11,6 +11,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
@@ -18,8 +22,10 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
+import org.springframework.security.oauth2.server.authorization.config.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.web.SecurityFilterChain;
+import ru.nova.authorizationserver.model.Role;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -40,18 +46,20 @@ public class AuthorizationServerConfig {
     }
 
     @Bean
-    public RegisteredClientRepository registeredClientRepository(){
+    public RegisteredClientRepository registeredClientRepository(PasswordEncoder passwordEncoder){
+
         RegisteredClient registeredClient = RegisteredClient
                 .withId(UUID.randomUUID().toString())
-                .clientId("gateway")
-                .clientSecret("{noop}secret")
+                .clientId("client-dotFood")
+                .clientSecret(passwordEncoder.encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8765/login/oauth2/code/gateway")
-                .scope(OidcScopes.OPENID)
+                .redirectUri("http://127.0.0.1:8081/login/oauth2/code/client-dotFood")
+                .scope("readIngredients")
                 .scope("writeIngredients")
                 .scope("deleteIngredients")
+                .scope(OidcScopes.OPENID)
                 .build();
         return new InMemoryRegisteredClientRepository(registeredClient);
     }
@@ -93,7 +101,7 @@ public class AuthorizationServerConfig {
     @Bean
     public ProviderSettings providerSettings(){
         return  ProviderSettings.builder()
-                .issuer("http://localhost:9000")
+                .issuer("http://127.0.0.1:9000")
                 .build();
     }
 }

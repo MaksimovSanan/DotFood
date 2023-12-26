@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>ru.nova</groupId>
-    <artifactId>gateway-server</artifactId>
+    <artifactId>client-dotFood</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>gateway-server</name>
-    <description>gateway-server</description>
+    <name>client-dotFood</name>
+    <description>client-dotFood</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -24,13 +24,23 @@
     </properties>
 
     <dependencies>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-oauth2-client</artifactId>-->
-<!--        </dependency>-->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
